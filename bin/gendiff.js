@@ -5,8 +5,11 @@ program
   .description('Compares two configuration files and shows a difference.')
   .option('-v, --version', 'output the version number')
   .option('--format [type]', 'output format')
-  .parse(process.argv)
-  .arguments('<filepath1> <filepath2>');
+  .arguments('<filepath1> <filepath2>')
+  .action((filePath1, filePath2) => {
+    console.log(filePath1, filePath2);
+  })
+  .parse(process.argv);
 
 program.on('-h', () => {
   console.log(`

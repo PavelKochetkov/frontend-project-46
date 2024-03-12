@@ -13,6 +13,9 @@ const genDiff = (filePath1, filePath2) => {
         if(!data2.hasOwnProperty(key)) {
             return `- ${key}: ${data1[key]}`;
         }
+        if(data1[key] === data2[key]) {
+            return `  ${key}: ${data1[key]}`;
+        }
 
         return `- ${key}: ${data1[key]}\n+ ${key}: ${data2[key]}`;
     });

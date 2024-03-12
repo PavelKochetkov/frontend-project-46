@@ -18,3 +18,5 @@ if (data1 && data2) {
 } else {
     console.log('Error reading and parsing files');
 }
+
+export default readAndParseFile;

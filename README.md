@@ -12,3 +12,5 @@ __"Вычислитель" отличий__ – программа, опреде
 ```
 Генерация отчета в виде plain text, stylish и json
 ```
+
+[![asciicast](https://asciinema.org/a/GpRYbf7FrLgHoX0MsKnEenpBj.svg)](https://asciinema.org/a/GpRYbf7FrLgHoX0MsKnEenpBj)

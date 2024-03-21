@@ -38,3 +38,11 @@ test('should return a sorted object for the same data', () => {
   const result = genDiff(filePath1, filePath2);
   expect(result).toEqual(expectedDiff);
 });
+
+test('should return a string', () => {
+  const filePath1 = getFixturePath('dataAny1.json');
+  const filePath2 = getFixturePath('dataAny2.json');
+
+  const result = genDiff(filePath1, filePath2);
+  expect(typeof result).toBe('string');
+});

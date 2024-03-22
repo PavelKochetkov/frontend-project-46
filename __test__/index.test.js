@@ -1,15 +1,13 @@
 /* eslint-disable no-undef */
-import path from 'path';
-import { fileURLToPath } from 'url';
-import genDiff from '../src/index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const getFixturePath = (fileName) => path.join(`${__dirname}/__fixtures__`, fileName);
+import genDiff from '../src/index.js';
+import getPath from '../src/util/utilites.js';
+
+const path = './__test__/__fixtures__';
 
 test('should generate sorted difference between two objects', () => {
-  const filePath1 = getFixturePath('dataAny1.json');
-  const filePath2 = getFixturePath('dataAny2.json');
+  const filePath1 = getPath(path, 'dataAny1.json');
+  const filePath2 = getPath(path, 'dataAny2.json');
 
   const expectedDiff = `{
 - follow: false
@@ -25,8 +23,8 @@ test('should generate sorted difference between two objects', () => {
 });
 
 test('should return a sorted object for the same data', () => {
-  const filePath1 = getFixturePath('dataAny1.json');
-  const filePath2 = getFixturePath('dataEqual.json');
+  const filePath1 = getPath(path, 'dataAny1.json');
+  const filePath2 = getPath(path, 'dataEqual.json');
 
   const expectedDiff = `{
   follow: false
@@ -40,8 +38,8 @@ test('should return a sorted object for the same data', () => {
 });
 
 test('should return a string', () => {
-  const filePath1 = getFixturePath('dataAny1.json');
-  const filePath2 = getFixturePath('dataAny2.json');
+  const filePath1 = getPath(path, 'dataAny1.json');
+  const filePath2 = getPath(path, 'dataAny1.json');
 
   const result = genDiff(filePath1, filePath2);
   expect(typeof result).toBe('string');

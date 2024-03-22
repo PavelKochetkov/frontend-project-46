@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import readAndParseFile from './util/parse.js';
+import readAndParseFile from './util/parsers.js';
 
 const genDiff = (filePath1, filePath2) => {
   const data1 = readAndParseFile(filePath1);

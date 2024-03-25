@@ -1,5 +1,9 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const getPath = (pathFolder, fileName) => path.join(pathFolder, fileName);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-export default getPath;
+const getFixturePath = (filename, folder) => path.join(__dirname, '../..', `${folder}`, filename);
+
+export { getFixturePath };

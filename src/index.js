@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 import readAndParseFile from './util/parsers.js';
+import { getFixturePath } from './util/utilites.js';
 
-const genDiff = (filePath1, filePath2) => {
-  const data1 = readAndParseFile(filePath1);
-  const data2 = readAndParseFile(filePath2);
+const genDiff = (fileName1, fileName2) => {
+  const path1 = getFixturePath(fileName1, 'public');
+  const path2 = getFixturePath(fileName2, 'public');
+  const data1 = readAndParseFile(path1);
+  const data2 = readAndParseFile(path2);
 
   const keys = Array.from(new Set([...Object.keys(data1), ...Object.keys(data2)])).sort();
   const diff = keys.map((key) => {

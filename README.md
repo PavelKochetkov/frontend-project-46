@@ -13,5 +13,25 @@ __"Вычислитель" отличий__ – программа, опреде
 ```
 Генерация отчета в виде plain text, stylish и json
 ```
+### Установка
 
-[![asciicast](https://asciinema.org/a/GpRYbf7FrLgHoX0MsKnEenpBj.svg)](https://asciinema.org/a/GpRYbf7FrLgHoX0MsKnEenpBj)
+```
+git clone https://github.com/PavelKochetkov/frontend-project-46.git
+```
+
+```
+make install
+```
+```
+make link
+```
+### Запуск тестов
+```
+make test
+```
+### Запуск ESLint
+```
+make lint
+```
+
+[![asciicast](https://asciinema.org/a/gVpvsTUr617ekBcBRtDeccns7.svg)](https://asciinema.org/a/gVpvsTUr617ekBcBRtDeccns7)

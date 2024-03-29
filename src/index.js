@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import _ from 'lodash';
 import readAndParseFile from './util/parsers.js';
 import { getFixturePath } from './util/utilites.js';
 
@@ -10,10 +11,10 @@ const genDiff = (fileName1, fileName2) => {
 
   const keys = Array.from(new Set([...Object.keys(data1), ...Object.keys(data2)])).sort();
   const diff = keys.map((key) => {
-    if (!Object.prototype.hasOwnProperty.call(data1, key)) {
+    if (!_.has(data1, key)) {
       return `+ ${key}: ${data2[key]}`;
     }
-    if (!Object.prototype.hasOwnProperty.call(data2, key)) {
+    if (!_.has(data2, key)) {
       return `- ${key}: ${data1[key]}`;
     }
     if (data1[key] === data2[key]) {

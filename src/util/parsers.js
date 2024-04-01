@@ -9,7 +9,7 @@ const readAndParseFile = (filePath) => {
 
   if (extension === '.json') {
     parse = JSON.parse(data);
-  } else if (extension === '.yml') {
+  } else if (extension === '.yml' || extension === '.yaml') {
     parse = yaml.load(data);
   }
 

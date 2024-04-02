@@ -2,6 +2,7 @@
 import _ from 'lodash';
 import readAndParseFile from './util/parsers.js';
 import { getFixturePath } from './util/utilites.js';
+import formatStylish from './formaters/stylish.js';
 
 const buildTree = (data1, data2) => {
   const keys = Array.from(new Set([...Object.keys(data1), ...Object.keys(data2)])).sort();
@@ -36,7 +37,9 @@ const genDiff = (fileName1, fileName2) => {
   const data1 = readAndParseFile(path1);
   const data2 = readAndParseFile(path2);
 
-  return buildTree(data1, data2);
+  const diff = buildTree(data1, data2);
+
+  return formatStylish(diff);
 };
 
 export default genDiff;

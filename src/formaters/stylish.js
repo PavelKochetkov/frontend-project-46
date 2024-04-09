@@ -1,29 +1,43 @@
-const numberOfIndents = 4;
-const leftShift = 4;
+/* eslint-disable no-case-declarations */
+const getIdent = (depth, spaceCount = 4) => ' '.repeat(depth * spaceCount - 2);
 
-const stringify = (value, replacer, space) => JSON.stringify(value, replacer, space);
+const stringify = (value, replacer, space) => {
+  if (typeof value === 'string') {
+    return `${value}`;
+  }
+  if (typeof value === 'object' && value !== null) {
+    return `{
+      ${Object.entries(value).map(([key, val]) => `${getIdent(space - 1)}${key}: ${stringify(val, null, space)}`).join('\n')}
+    }`;
+  }
+
+  return JSON.stringify(value, replacer, space);
+};
 
 const formatStylish = (tree) => {
-  const iter = (node, depth) => {
-    const indentation = ''.repeat(depth * numberOfIndents - leftShift);
+  const iter = (node, depth = 1) => {
     const result = node.map((item) => {
       switch (item.type) {
         case 'added':
-          return `      ${indentation} + ${item.key}: ${stringify(item.value, null, '\t'.repeat(depth))}`;
+          return `${getIdent(depth)}+ ${item.key}: ${stringify(item.value, null, depth + 1)}`;
         case 'removed':
-          return `      ${indentation} - ${item.key}: ${stringify(item.value, null, '\t'.repeat(depth))}`;
+          return `${getIdent(depth)}- ${item.key}: ${stringify(item.value, null, depth + 1)}`;
         case 'changed':
-          return `      ${indentation} - ${item.key}: ${stringify(item.value1, null, '\t'.repeat(depth))}`
-          + `\n      ${indentation} + ${item.key}: ${stringify(item.value2, null, '\t'.repeat(depth))}`;
+          const add = `${getIdent(depth)}+ ${item.key}: ${stringify(item.value2, null, depth + 1)}`;
+          const del = `${getIdent(depth)}- ${item.key}: ${stringify(item.value1, null, depth + 1)}`;
+
+          return `${del}\n${add}`;
         case 'unchanged':
-          return `      ${indentation}   ${item.key}: ${stringify(item.value, null, '\t'.repeat(depth))}`;
+          return `${getIdent(depth)}  ${item.key}: ${stringify(item.value, null, depth + 1)}`;
         case 'nested':
-          return `    ${indentation}${item.key}: ${iter(item.children, depth + 1)}`;
+          return `${getIdent(depth)}  ${item.key}: ${iter(item.children, depth + 1)}`;
         default:
           throw new Error(`Unknown type: ${item.type}`);
       }
     });
-    return `${indentation}{\n${result.join('\n')}\n}`;
+    return `{
+      \n${result.join('\n')}\n
+    }`;
   };
   return iter(tree, 1);
 };

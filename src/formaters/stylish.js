@@ -7,7 +7,7 @@ const stringify = (value, replacer, space) => {
   }
   if (typeof value === 'object' && value !== null) {
     return `{
-      ${Object.entries(value).map(([key, val]) => `${getIdent(space - 1)}${key}: ${stringify(val, null, space)}`).join('\n')}
+      ${Object.entries(value).map(([key, val]) => `${getIdent(space - 1)}${key}: ${stringify(val, null, space + 1)}`).join('\n')}
     }`;
   }
 

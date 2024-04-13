@@ -12,3 +12,7 @@ run:
 	bin/gendiff.js
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
+rec-demo:
+	asciinema rec demo.cast
+rec-upload:
+	asciinema upload demo.cast

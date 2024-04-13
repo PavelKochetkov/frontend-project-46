@@ -5,10 +5,10 @@ import genDiff from '../src/index.js';
 program
   .description('Compares two configuration files and shows a difference.')
   .option('-v, --version', 'output the version number')
-  .option('--format [type]', 'output format')
+  .option('-f, --format [type]', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2>')
-  .action((filePath1, filePath2) => {
-    const result = genDiff(filePath1, filePath2);
+  .action((filePath1, filePath2, options) => {
+    const result = genDiff(filePath1, filePath2, options.format);
     console.log(result);
   })
   .parse(process.argv);

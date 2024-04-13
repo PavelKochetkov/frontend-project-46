@@ -34,4 +34,4 @@ make test
 make lint
 ```
 
-[![asciicast](https://asciinema.org/a/JBzbzqfXzYmUqZqswDPMSJgLv.svg)](https://asciinema.org/a/JBzbzqfXzYmUqZqswDPMSJgLv)
+[![asciicast](https://asciinema.org/a/8dGY7KJw7YnRNGjueqpUXlK2v.svg)](https://asciinema.org/a/8dGY7KJw7YnRNGjueqpUXlK2v)

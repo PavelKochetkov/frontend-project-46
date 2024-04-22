@@ -11,7 +11,7 @@ __"Вычислитель" отличий__ – программа, опреде
 Поддержка разных входных форматов: yaml, json
 ```
 ```
-Генерация отчета в виде plain text, stylish и json
+Генерация отчета в виде plain text, stylish и json. По умолчанию stylish.
 ```
 ### Установка
 
@@ -34,4 +34,4 @@ make test
 make lint
 ```
 
-[![asciicast](https://asciinema.org/a/8dGY7KJw7YnRNGjueqpUXlK2v.svg)](https://asciinema.org/a/8dGY7KJw7YnRNGjueqpUXlK2v)
+[![asciicast](https://asciinema.org/a/royAQ4soRw5ORQvNPOcGz6Twb.svg)](https://asciinema.org/a/royAQ4soRw5ORQvNPOcGz6Twb)

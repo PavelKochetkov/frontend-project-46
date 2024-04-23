@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-const getIdent = (spaceCount) => ' '.repeat(spaceCount * 2);
+const getIdent = (depth, spaceCount = 2) => ' '.repeat(depth * spaceCount);
 
 const stringify = (value, space) => {
   if (typeof value === 'object' && value !== null) {
@@ -14,17 +14,22 @@ const formatStylish = (tree) => {
     const result = node.map((item) => {
       switch (item.type) {
         case 'added':
-          return `${getIdent(depth + 1)}+ ${item.key}: ${stringify(item.value, depth + 3)}`;
+          console.log('added', depth);
+          return `${getIdent(depth)}+ ${item.key}: ${stringify(item.value, depth + 1)}`;
         case 'removed':
-          return `${getIdent(depth + 1)}- ${item.key}: ${stringify(item.value, depth + 3)}`;
+          console.log('removed', depth);
+          return `${getIdent(depth)}- ${item.key}: ${stringify(item.value, depth + 1)}`;
         case 'changed':
-          const add = `${getIdent(depth + 1)}+ ${item.key}: ${stringify(item.value2, depth + 3)}`;
-          const del = `${getIdent(depth + 1)}- ${item.key}: ${stringify(item.value1, depth + 3)}`;
+          console.log('changed', depth);
+          const add = `${getIdent(depth)}+ ${item.key}: ${stringify(item.value2, depth + 1)}`;
+          const del = `${getIdent(depth)}- ${item.key}: ${stringify(item.value1, depth + 1)}`;
 
           return `${del}\n${add}`;
         case 'unchanged':
-          return `${getIdent(depth + 1)}  ${item.key}: ${stringify(item.value, depth + 3)}`;
+          console.log('unchanged', depth);
+          return `${getIdent(depth)}  ${item.key}: ${stringify(item.value, depth + 1)}`;
         case 'nested':
+          console.log('nested', depth);
           return `${getIdent(depth)}  ${item.key}: ${iter(item.children, depth + 1)}`;
         default:
           throw new Error(`Unknown type: ${item.type}`);

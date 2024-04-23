@@ -3,7 +3,7 @@ const getIdent = (depth, spaceCount = 2) => ' '.repeat(depth * spaceCount);
 
 const stringify = (value, space) => {
   if (typeof value === 'object' && value !== null) {
-    return `{\n${Object.entries(value).map(([key, val]) => `${getIdent(space + 3)}${key}: ${stringify(val, space + 1)}`).join('\n')}\n${getIdent(space - 1)}}`;
+    return `{\n${Object.entries(value).map(([key, val]) => `${getIdent(space + 3)}${key}: ${stringify(val, space + 2)}`).join('\n')}\n${getIdent(space + 1)}}`;
   }
 
   return `${value}`;
@@ -23,7 +23,7 @@ const formatStylish = (tree) => {
 
           return `${del}\n${add}`;
         case 'unchanged':
-          return `${getIdent(depth)}   ${item.key}: ${stringify(item.value, depth + 1)}`;
+          return `${getIdent(depth)}    ${item.key}: ${stringify(item.value, depth + 1)}`;
         case 'nested':
           return `${getIdent(depth)}  ${item.key}: ${iter(item.children, depth + 1)}`;
         default:

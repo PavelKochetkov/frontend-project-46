@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import _ from 'lodash';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -9,11 +10,9 @@ const getFixturePath = (filename, folder) => path.resolve(__dirname, '../..', fo
 
 const setQuotes = (value) => {
   let quotes;
-  if (typeof value === 'boolean' || typeof value === 'object') {
+  if (!_.isString(value)) {
     quotes = value;
-  }
-
-  if (typeof value === 'string') {
+  } else {
     quotes = `'${value}'`;
   }
 

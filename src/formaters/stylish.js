@@ -31,7 +31,7 @@ const iter = (item, depth) => {
 
       return `${del}\n${add}`;
     case 'nested':
-      return `${getIdent(depth)}${symbol[item.type]} ${item.key}: {\n${item.children.map((child) => iter(child, depth + 1)).join('\n')}\n ${getIdent(depth)}}`;
+      return `${getIdent(depth)}${symbol[item.type]} ${item.key}: {\n${item.children.map((child) => iter(child, depth + 1)).join('\n')}\n  ${getIdent(depth)}}`;
     default:
       throw new Error(`Unknown type: ${item.type}`);
   }

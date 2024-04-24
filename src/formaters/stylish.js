@@ -1,38 +1,40 @@
 /* eslint-disable no-case-declarations */
-const getIdent = (depth, spaceCount = 2) => ' '.repeat(depth * spaceCount);
+import _ from 'lodash';
 
-const stringify = (value, space) => {
-  if (typeof value === 'object' && value !== null) {
-    return `{\n${Object.entries(value).map(([key, val]) => `${getIdent(space + 3)}${key}: ${stringify(val, space + 2)}`).join('\n')}\n${getIdent(space + 1)}}`;
+const ident = 4;
+const getIdent = (depth, spaceCount = 2) => ' '.repeat(depth * ident - spaceCount);
+
+const stringify = (value, depth) => {
+  if (!_.isObject(value)) {
+    return value;
   }
 
-  return `${value}`;
+  return `{\n${Object.entries(value).map(([key, val]) => `${getIdent(depth)}  ${key}: ${stringify(val, depth + 1)}`).join('\n')}\n${getIdent(depth - 1)}  }`;
 };
 
-const formatStylish = (tree) => {
-  const iter = (node, depth = 1) => {
-    const result = node.map((item) => {
-      switch (item.type) {
-        case 'added':
-          return `${getIdent(depth)}  + ${item.key}: ${stringify(item.value, depth + 1)}`;
-        case 'removed':
-          return `${getIdent(depth)}  - ${item.key}: ${stringify(item.value, depth + 1)}`;
-        case 'changed':
-          const add = `${getIdent(depth)}  + ${item.key}: ${stringify(item.value2, depth + 1)}`;
-          const del = `${getIdent(depth)}  - ${item.key}: ${stringify(item.value1, depth + 1)}`;
-
-          return `${del}\n${add}`;
-        case 'unchanged':
-          return `${getIdent(depth)}    ${item.key}: ${stringify(item.value, depth + 1)}`;
-        case 'nested':
-          return `${getIdent(depth)}  ${item.key}: ${iter(item.children, depth + 1)}`;
-        default:
-          throw new Error(`Unknown type: ${item.type}`);
-      }
-    });
-    return `{\n${result.join('\n')}\n${getIdent(depth - 1)}}`;
-  };
-  return iter(tree, 1);
+const symbol = {
+  added: '+',
+  removed: '-',
+  unchanged: ' ',
+  nested: ' ',
 };
 
-export default formatStylish;
+const iter = (item, depth) => {
+  switch (item.type) {
+    case 'added':
+    case 'removed':
+    case 'unchanged':
+      return `${getIdent(depth)}${symbol[item.type]} ${item.key}: ${stringify(item.value, depth + 1)}`;
+    case 'changed':
+      const add = `${getIdent(depth)}${symbol.added} ${item.key}: ${stringify(item.value2, depth + 1)}`;
+      const del = `${getIdent(depth)}${symbol.removed} ${item.key}: ${stringify(item.value1, depth + 1)}`;
+
+      return `${del}\n${add}`;
+    case 'nested':
+      return `${getIdent(depth)}${symbol[item.type]} ${item.key}: {\n${item.children.map((child) => iter(child, depth + 1)).join('\n')}\n ${getIdent(depth)}}`;
+    default:
+      throw new Error(`Unknown type: ${item.type}`);
+  }
+};
+
+export default (astDiff) => `{\n${astDiff.map((elem) => iter(elem, 1)).join('\n')}\n}`;

@@ -4,8 +4,8 @@ import { expectedDiffJson } from './__fixtures__/expectedformat.js';
 import genDiff from '../src/index.js';
 import { getFixturePath } from '../src/util/utilites.js';
 
-const stylish = readFileSync(getFixturePath('stylish', '__test__/__fixtures__'), 'utf8', 'r');
-const plain = readFileSync(getFixturePath('plain', '__test__/__fixtures__'), 'utf8', 'r');
+const stylish = readFileSync(getFixturePath('stylish.txt', '__test__/__fixtures__'), 'utf8', 'r');
+const plain = readFileSync(getFixturePath('plain.txt', '__test__/__fixtures__'), 'utf8', 'r');
 const output = { stylish, plain };
 
 test('should generate sorted difference between two objects in stylish format', () => {
@@ -21,7 +21,7 @@ test('should generate sorted difference between two objects in plain format', ()
   const filePath2 = getFixturePath('file2.json', '__test__/__fixtures__');
 
   const result = genDiff(filePath1, filePath2, 'plain');
-  expect(result).toEqual(output.plain);
+  expect(result).toBe(output.plain);
 });
 
 test('should generate sorted difference between two objects in json format', () => {

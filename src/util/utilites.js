@@ -8,15 +8,6 @@ const __dirname = path.dirname(__filename);
 
 const getFixturePath = (filename, folder) => path.resolve(__dirname, '../..', folder, filename);
 
-const setQuotes = (value) => {
-  let quotes;
-  if (!_.isString(value)) {
-    quotes = value;
-  } else {
-    quotes = `'${value}'`;
-  }
-
-  return quotes;
-};
+const setQuotes = (value) => (!_.isString(value) ? value : `'${value}'`);
 
 export { getFixturePath, setQuotes };

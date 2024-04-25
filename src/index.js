@@ -5,8 +5,9 @@ import { getFixturePath } from './util/utilites.js';
 import getFormat from './formaters/index.js';
 
 const buildTree = (data1, data2) => {
-  const keys = Array.from(new Set([...Object.keys(data1), ...Object.keys(data2)])).sort();
-  const tree = keys.map((key) => {
+  const keys = Array.from(new Set([...Object.keys(data1), ...Object.keys(data2)]));
+  const sortedKeys = [...keys].sort();
+  const tree = sortedKeys.map((key) => {
     if (!_.has(data1, key)) {
       return { key, type: 'added', value: data2[key] };
     }

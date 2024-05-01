@@ -8,6 +8,8 @@ publish:
 	npm publish --dry-run
 run:
 	bin/gendiff.js
+test:
+	npm run test
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
 rec-demo:

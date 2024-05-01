@@ -1,8 +1,10 @@
 #!/usr/bin/env node
+import path from 'path';
 import _ from 'lodash';
-import readAndParseFile from './util/parsers.js';
-import { getFixturePath } from './util/utilites.js';
+import readAndParseFile from './parsers.js';
 import getFormat from './formaters/index.js';
+
+const getPathFile = (fileName, directory = '__test__/__fixtures__') => path.resolve(directory, fileName);
 
 const buildTree = (data1, data2) => {
   const keys = Array.from(new Set([...Object.keys(data1), ...Object.keys(data2)]));
@@ -33,8 +35,8 @@ const buildTree = (data1, data2) => {
 };
 
 const genDiff = (fileName1, fileName2, formatType) => {
-  const path1 = getFixturePath(fileName1, '__test__/__fixtures__');
-  const path2 = getFixturePath(fileName2, '__test__/__fixtures__');
+  const path1 = getPathFile(fileName1);
+  const path2 = getPathFile(fileName2);
   const data1 = readAndParseFile(path1);
   const data2 = readAndParseFile(path2);
 

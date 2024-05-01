@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { setQuotes } from '../util/utilites.js';
 
+const setQuotes = (value) => (!_.isString(value) ? value : `'${value}'`);
 const stringify = (value) => (_.isObject(value) || _.isArray(value) ? '[complex value]' : setQuotes(value));
 
 const formatPlain = (tree) => {

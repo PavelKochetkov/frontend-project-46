@@ -1,42 +1,34 @@
 import { test, expect } from '@jest/globals';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { readFileSync } from 'fs';
 import genDiff from '../src/index.js';
-import { getFixturePath } from '../src/util/utilites.js';
 
-const stylish = readFileSync(getFixturePath('stylish.txt', '__test__/__fixtures__'), 'utf8', 'r');
-const plain = readFileSync(getFixturePath('plain.txt', '__test__/__fixtures__'), 'utf8', 'r');
-const json = readFileSync(getFixturePath('json.txt', '__test__/__fixtures__'), 'utf8', 'r');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const output = { stylish, plain, json };
+const getFixturePath = (filename) => path.join(`${__dirname}/__fixtures__/`, filename);
 
-test('should generate sorted difference between two objects in stylish format', () => {
-  const filePath1 = getFixturePath('file1.json', '__test__/__fixtures__');
-  const filePath2 = getFixturePath('file2.json', '__test__/__fixtures__');
+const expectedStylish = readFileSync(getFixturePath('stylish.txt'), 'utf8');
+const expectedPlain = readFileSync(getFixturePath('plain.txt'), 'utf8');
+const expectedJson = readFileSync(getFixturePath('json.txt'), 'utf8');
 
-  const result = genDiff(filePath1, filePath2, 'stylish');
-  expect(result).toEqual(output.stylish);
+test('should work with json', () => {
+  const filePath1 = getFixturePath('file1.json');
+  const filePath2 = getFixturePath('file2.json');
+
+  expect(genDiff(filePath1, filePath2, 'stylish')).toEqual(expectedStylish);
+  expect(genDiff(filePath1, filePath2, 'plain')).toEqual(expectedPlain);
+  expect(genDiff(filePath1, filePath2, 'json')).toEqual(expectedJson);
+  expect(genDiff(filePath1, filePath2)).toEqual(expectedStylish);
 });
 
-test('should generate sorted difference between two objects in plain format', () => {
-  const filePath1 = getFixturePath('file1.json', '__test__/__fixtures__');
-  const filePath2 = getFixturePath('file2.json', '__test__/__fixtures__');
+test('should work with yaml', () => {
+  const filePath1 = getFixturePath('file1.yml');
+  const filePath2 = getFixturePath('file2.yml');
 
-  const result = genDiff(filePath1, filePath2, 'plain');
-  expect(result).toEqual(output.plain);
-});
-
-test('should generate sorted difference between two objects in json format', () => {
-  const filePath1 = getFixturePath('file1.json', '__test__/__fixtures__');
-  const filePath2 = getFixturePath('file2.json', '__test__/__fixtures__');
-
-  const result = genDiff(filePath1, filePath2, 'json');
-  expect(result).toEqual(output.json);
-});
-
-test('should return a string', () => {
-  const filePath1 = getFixturePath('file1.json', '__test__/__fixtures__');
-  const filePath2 = getFixturePath('file2.yml', '__test__/__fixtures__');
-
-  const result = genDiff(filePath1, filePath2);
-  expect(typeof result).toEqual('string');
+  expect(genDiff(filePath1, filePath2, 'stylish')).toEqual(expectedStylish);
+  expect(genDiff(filePath1, filePath2, 'plain')).toEqual(expectedPlain);
+  expect(genDiff(filePath1, filePath2, 'json')).toEqual(expectedJson);
+  expect(genDiff(filePath1, filePath2)).toEqual(expectedStylish);
 });

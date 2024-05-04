@@ -1,9 +1,9 @@
 import yaml from 'js-yaml';
 
-const readAndParseFile = (data, extension) => {
+const parseFile = (data, extension) => {
   const parse = (extension === 'json') ? JSON.parse(data) : yaml.load(data);
 
   return parse;
 };
 
-export default readAndParseFile;
+export default parseFile;

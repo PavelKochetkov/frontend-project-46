@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import readAndParseFile from './parsers.js';
+import parseFile from './parsers.js';
 import format from './formaters/index.js';
 import buildTree from './buildTree.js';
 
@@ -19,8 +19,8 @@ const genDiff = (fileName1, fileName2, formatType) => {
   const dataType1 = getDataType(fileName1);
   const dataType2 = getDataType(fileName2);
 
-  const dataParsed1 = readAndParseFile(data1, dataType1);
-  const dataParsed2 = readAndParseFile(data2, dataType2);
+  const dataParsed1 = parseFile(data1, dataType1);
+  const dataParsed2 = parseFile(data2, dataType2);
 
   const diff = buildTree(dataParsed1, dataParsed2);
 

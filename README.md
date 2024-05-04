@@ -26,6 +26,18 @@ make install
 ```
 make link
 ```
+### Демонстрация работы после установки
+
+```
+make demo-stylish
+```
+
+```
+make demo-plain
+```
+```
+make demo-json
+```
 ### Запуск тестов
 ```
 make test

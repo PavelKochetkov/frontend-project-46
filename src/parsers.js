@@ -1,9 +1,15 @@
 import yaml from 'js-yaml';
 
-const parseFile = (data, extension) => {
-  const parse = (extension === 'json') ? JSON.parse(data) : yaml.load(data);
-
-  return parse;
+const parsers = {
+  json: JSON.parse,
+  yml: yaml.load,
+  yaml: yaml.load,
 };
 
-export default parseFile;
+export default (data, type) => {
+  if (!parsers[type]) {
+    throw new Error(`${type} format is not supported by the application`);
+  }
+
+  return parsers[type](data);
+};

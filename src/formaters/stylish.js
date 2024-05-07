@@ -37,4 +37,4 @@ const iter = (item, depth) => {
   }
 };
 
-export default (astDiff) => `{\n${astDiff.map((elem) => iter(elem, 1)).join('\n')}\n}`;
+export default (astDiff) => `{\n${astDiff.map((element) => iter(element, 1)).join('\n')}\n}`;

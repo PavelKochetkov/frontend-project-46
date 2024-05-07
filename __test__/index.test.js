@@ -7,7 +7,7 @@ import genDiff from '../src/index.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const getFixturePath = (filename) => path.join(__dirname, '../__fixtures__', filename);
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 const expectedStylish = readFileSync(getFixturePath('stylish.txt'), 'utf8');
 const expectedPlain = readFileSync(getFixturePath('plain.txt'), 'utf8');

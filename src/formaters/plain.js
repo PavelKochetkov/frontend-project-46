@@ -19,7 +19,6 @@ const iter = (item, parentPath = '') => {
     default:
       throw new Error(`Unknown item type: ${item.type}`);
   }
-  // return result.filter((el) => el !== '').join('\n');
 };
 
 export default (astDiff) => `${astDiff.map((element) => iter(element)).join('\n')}`;

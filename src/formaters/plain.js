@@ -13,7 +13,7 @@ const iter = (item, parentPath = '') => {
     case 'changed':
       return `Property ${setQuotes(parentKey)} was updated. From ${stringify(item.value1)} to ${stringify(item.value2)}`;
     case 'nested':
-      return item.children.map((child) => iter(child, parentKey)).filter((element) => element !== '').join('\n');
+      return item.children.map((child) => iter(child, parentKey)).filter(Boolean).join('\n');
     case 'unchanged':
       return '';
     default:
@@ -21,4 +21,4 @@ const iter = (item, parentPath = '') => {
   }
 };
 
-export default (astDiff) => `${astDiff.map((element) => iter(element)).join('\n')}`;
+export default (astDiff) => `${astDiff.map((element) => iter(element)).filter(Boolean).join('\n')}`;

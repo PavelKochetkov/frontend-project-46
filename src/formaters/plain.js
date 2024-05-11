@@ -21,4 +21,4 @@ const iter = (item, parentPath = '') => {
   }
 };
 
-export default (astDiff) => `${astDiff.map((element) => iter(element)).filter(Boolean).join('\n')}`;
+export default (difference) => `${difference.map((element) => iter(element)).filter(Boolean).join('\n')}`;
